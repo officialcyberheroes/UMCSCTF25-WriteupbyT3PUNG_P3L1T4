@@ -2,7 +2,7 @@
 
 **Writeup made by:** itikjoget, R4N4WB0I, onyo, c1nn4m0n
 
-![ranking.png](C:\Users\Razlan\CTF\wu\umcs\ranking.png)
+![ranking.png](ranking.png)
 
 
 
@@ -34,25 +34,25 @@
 
 ### 1. Hidden in Plain Graphic
 
-![hips1.png](C:\Users\Razlan\CTF\wu\umcs\images\hips1.png)
+![hips1.png](images\hips1.png)
 
 We were given a challenge to find Agent Ali's activity in a packet.
 
 
 
-![hips2.png](C:\Users\Razlan\CTF\wu\umcs\images\hips2.png)
+![hips2.png](images\hips2.png)
 
 As usual, we open the pcap file using Wireshark to start analyzing the packet and there are tons of malformed packets.
 
 
 
-![hips3.png](C:\Users\Razlan\CTF\wu\umcs\images\hips3.png)
+![hips3.png](images\hips3.png)
 
 We need to find the packet with a message - we need to find a packet with a large size. We made a custom sorting of size since Wireshark did not supply that.
 
 
 
-![hips4.png](C:\Users\Razlan\CTF\wu\umcs\images\hips4.png)
+![hips4.png](images\hips4.png)
 
 At the top, we can find a packet that is obviously much larger than the other files. Not only that, it also contains "PNG" so we immediately extracted it.
 
@@ -60,7 +60,7 @@ At the top, we can find a packet that is obviously much larger than the other fi
 
 
 
-![hips6.png](C:\Users\Razlan\CTF\wu\umcs\images\hips6.png)
+![hips6.png](images\hips6.png)
 
 After extracting the image, we tried exiftool, steghide, and binwalk - but in the end `zsteg` gave us the flag. 👏
 
@@ -76,21 +76,21 @@ After extracting the image, we tried exiftool, steghide, and binwalk - but in th
 
 
 
-> ![br1.png](C:\Users\Razlan\CTF\wu\umcs\images\br1.png)
+> ![br1.png](images\br1.png)
 > 
 > *Not everything that has broken can be fixed..but this time we nailed it! (no pun intended)*
 
-![br2.png](C:\Users\Razlan\CTF\wu\umcs\images\br2.png)
+![br2.png](images\br2.png)
 
 We tried to read the file content and it appears to be that this file was created or streamed via VLC, so we tried to play it using VLC. Unfortunately, there were errors that made it unplayable.
 
-![br3.png](C:\Users\Razlan\CTF\wu\umcs\images\br3.png)
+![br3.png](images\br3.png)
 
 We found a video repair tool online called **Stellar**, but the smart fix was not working and it required advanced repair. We downloaded an MP4 sample from [https://file-examples.com](https://file-examples.com/index.php/sample-video-files/sample-mp4-files/) to repair the video.
 
 
 
-![br4.png](C:\Users\Razlan\CTF\wu\umcs\images\br4.png)
+![br4.png](images\br4.png)
 
 The repaired video played the flag so fast that we had to record it using OBS Studio and pause it at the right time.
 
@@ -102,19 +102,19 @@ The repaired video played the flag so fast that we had to record it using OBS St
 
 
 
-![hm1.png](C:\Users\Razlan\CTF\wu\umcs\images\hm1.png)
+![hm1.png](images\hm1.png)
 
 > *Interesting challenge with a historical incident in Miami*
 
 
 
-![hm2.png](C:\Users\Razlan\CTF\wu\umcs\images\hm2.png)
+![hm2.png](images\hm2.png)
 
 We read the `readme.txt` and a secret message appeared. It looked like the flag would be `umcs{Subject_Be_Verb_Year}` so we analyzed it more with the clue.
 
 
 
-![hm3.png](C:\Users\Razlan\CTF\wu\umcs\images\hm3.png)
+![hm3.png](images\hm3.png)
 
 As usual, we inspected `rooster.jpg` using the `strings` command and found a weird string: **"RICHARD"** - maybe a clue for the next part.
 
@@ -126,11 +126,11 @@ Then we analyzed the audio using **Sonic Visualizer**. We tried to listen to the
 
 
 
-![hm5.png](C:\Users\Razlan\CTF\wu\umcs\images\hm5.png)
+![hm5.png](images\hm5.png)
 
 
 
-![hm6.png](C:\Users\Razlan\CTF\wu\umcs\images\hm6.png)
+![hm6.png](images\hm6.png)
 
 After a few minutes of searching, we found **"Watching"** (a verb) and **"1989"** (a year). We already have `Subject_Be_Watching_1989`. The subject could be Richard, so we concluded the flag is `Richard_Be_Watching_1989`.
 
@@ -146,19 +146,19 @@ After a few minutes of searching, we found **"Watching"** (a verb) and **"1989"*
 
 
 
-![hc1.png](C:\Users\Razlan\CTF\wu\umcs\images\hc1.png)
+![hc1.png](images\hc1.png)
 
 > *Healthcheck? They should've performed it on us instead of the website after facing all these hard challenges..anyway lets hop into it*
 
 
 
-![hc2.png](C:\Users\Razlan\CTF\wu\umcs\images\hc2.png)
+![hc2.png](images\hc2.png)
 
 We were greeted with a health check. We could input a URL and it would return the status (200, 404, 403, etc.). It was safe to say we had to perform **SSRF** to retrieve the `hopes_and_dreams` file.
 
 
 
-![hc4.png](C:\Users\Razlan\CTF\wu\umcs\images\hc4.png)
+![hc4.png](images\hc4.png)
 
 So we used Webhook to hook the file inside the server. We used `curl` injection with `-F` to simulate form uploads, using `flag=@<path to flag>`.
 
@@ -170,13 +170,13 @@ So we used Webhook to hook the file inside the server. We used `curl` injection 
 
 
 
-![hc3.png](C:\Users\Razlan\CTF\wu\umcs\images\hc3.png)
+![hc3.png](images\hc3.png)
 
 It returned status 100 and 200, and the file was retrieved!
 
 
 
-![hc5.png](C:\Users\Razlan\CTF\wu\umcs\images\hc5.png)
+![hc5.png](images\hc5.png)
 
 **FLAG:** `umcs{n1c3_j0b_ste4l1ng_myh0p3_4nd_dr3ams}`
 
@@ -186,7 +186,7 @@ It returned status 100 and 200, and the file was retrieved!
 
 
 
-![sf1.png](C:\Users\Razlan\CTF\wu\umcs\images\sf1.png)
+![sf1.png](images\sf1.png)
 
 > *Looks like we have to "hack" a game center*
 
@@ -225,7 +225,7 @@ def register():
 
 
 
-![sf2.png](C:\Users\Razlan\CTF\wu\umcs\images\sf2.png)
+![sf2.png](images\sf2.png)
 
 Each new user is provided with **1000** and may collect a daily bonus ($1000) totalling 2000  - but we need  3000 to redeem the flag.
 
@@ -308,7 +308,7 @@ if __name__ == "__main__":
 
 
 
-![sf3.png](C:\Users\Razlan\CTF\wu\umcs\images\sf3.png)
+![sf3.png](images\sf3.png)
 
 The script creates a user, extracts the session cookie, and performs race condition exploitation. Simply login using the auto-created username and adjust the session cookie. Now logged in with $3000 - click buy flag!
 
@@ -322,13 +322,13 @@ The script creates a user, extracts the session cookie, and performs race condit
 
 
 
-![g1.png](C:\Users\Razlan\CTF\wu\umcs\images\g1.png)
+![g1.png](images\g1.png)
 
 > *If you have a friend named Samuel, better hide him because we almost crashed out answering this.*
 
 
 
-![g2.png](C:\Users\Razlan\CTF\wu\umcs\images\g2.png)
+![g2.png](images\g2.png)
 
 Opening the file, we could see a bunch of vehicle emojis. After a few minutes of research we discovered it was actually **Morse code**:
 
@@ -341,7 +341,7 @@ Opening the file, we could see a bunch of vehicle emojis. After a few minutes of
 
 
 
-![g3.png](C:\Users\Razlan\CTF\wu\umcs\images\g3.png)
+![g3.png](images\g3.png)
 
 After manually decrypting it, we got:
 
@@ -357,11 +357,11 @@ https://gist.github.com/umcybersec/e012d0a1fffac42d6aae00c54078ad3e
 
 
 
-![g4.png](C:\Users\Razlan\CTF\wu\umcs\images\g4.png)
+![g4.png](images\g4.png)
 
-![g5.png](C:\Users\Razlan\CTF\wu\umcs\images\g5.png)
+![g5.png](images\g5.png)
 
-![g6.png](C:\Users\Razlan\CTF\wu\umcs\images\g6.png)
+![g6.png](images\g6.png)
 
 From the gist, we received ASCII art encrypted with **Rail Fence Cipher (key = 8)**. Decoding it revealed a campsite name.
 
@@ -375,7 +375,7 @@ From the gist, we received ASCII art encrypted with **Rail Fence Cipher (key = 8
 
 
 
-![http.png](C:\Users\Razlan\CTF\wu\umcs\images\http.png)
+![http.png](images\http.png)
 
 > *The one and only rev challenge!*
 
@@ -400,7 +400,7 @@ We realized GET may not be supported and the custom protocol required `nc` (netc
 
 
 
-![http1.png](C:\Users\Razlan\CTF\wu\umcs\images\http1.png)
+![http1.png](images\http1.png)
 
 Using `nc` directly with the custom protocol returned the flag!
 
@@ -414,7 +414,7 @@ Using `nc` directly with the custom protocol returned the flag!
 
 
 
-![babysc.png](C:\Users\Razlan\CTF\wu\umcs\images\babysc.png)
+![babysc.png](images\babysc.png)
 
 > *An interesting pwn challenge*
 
@@ -484,7 +484,7 @@ Input `cat /flag` and get the flag.
 
 
 
-![bof.png](C:\Users\Razlan\CTF\wu\umcs\images\bof.png)
+![bof.png](images\bof.png)
 
 > *A bof challenge*
 
